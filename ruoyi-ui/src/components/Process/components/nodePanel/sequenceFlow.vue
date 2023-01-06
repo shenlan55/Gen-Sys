@@ -25,8 +25,7 @@ export default {
   mixins: [mixinPanel, mixinExecutionListener],
   data() {
     return {
-      formData: {},
-      executionListenerLength: 0
+      formData: {}
     }
   },
   computed: {
@@ -90,14 +89,7 @@ export default {
   created() {
     let cache = commonParse(this.element)
     cache = conditionExpressionParse(cache)
-    this.formData = cache;
-    this.computedExecutionListenerLength();
-  },
-  methods:{
-    computedExecutionListenerLength() {
-      this.executionListenerLength = this.element.businessObject.extensionElements?.values
-        ?.filter(item => item.$type === 'flowable:ExecutionListener').length ?? 0
-    },
+    this.formData = cache
   }
 }
 </script>
