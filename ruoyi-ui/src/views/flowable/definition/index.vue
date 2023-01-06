@@ -25,15 +25,15 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <!--      <el-col :span="1.5">-->
-      <!--        <el-button-->
-      <!--          type="primary"-->
-      <!--          plain-->
-      <!--          icon="el-icon-upload"-->
-      <!--          size="mini"-->
-      <!--          @click="handleImport"-->
-      <!--        >导入</el-button>-->
-      <!--      </el-col>-->
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="el-icon-upload"-->
+<!--          size="mini"-->
+<!--          @click="handleImport"-->
+<!--        >导入</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="success"
@@ -152,7 +152,7 @@
           流程名称：<el-input v-model="upload.name"/>
           流程分类：
           <div>
-            <!--          <el-input v-model="upload.category"/>-->
+<!--          <el-input v-model="upload.category"/>-->
             <el-select v-model="upload.category" placeholder="请选择流程分类">
               <el-option
                 v-for="dict in dict.type.sys_process_category"
@@ -172,16 +172,13 @@
     </el-dialog>
 
     <!-- 流程图 -->
-    <el-dialog :title="readImage.title" :visible.sync="readImage.open" width="70%" append-to-body>
-      <!-- <el-image :src="readImage.src"></el-image> -->
-      <flow :flowData="flowData"/>
+    <el-dialog :title="flowImageTitle" :visible.sync="flowImageOpen" width="70%" append-to-body>
+       <flow :flowData="flowData"/>
     </el-dialog>
 
     <!--表单配置详情-->
     <el-dialog :title="formTitle" :visible.sync="formConfOpen" width="50%" append-to-body>
-      <div class="test-form">
-        <parser :key="new Date().getTime()"  :form-conf="formConf" />
-      </div>
+        <v-form-render :form-data="formRenderData" ref="vFormRef"/>
     </el-dialog>
 
     <!--挂载表单-->
@@ -215,23 +212,21 @@
           />
         </el-col>
         <el-col :span="14" :xs="24">
-          <div v-if="currentRow">
-            <parser :key="new Date().getTime()" :form-conf="currentRow" />
-          </div>
+            <v-form-render :form-data="formRenderData" ref="vFormRef"/>
         </el-col>
       </el-row>
     </el-dialog>
 
-    <!--    &lt;!&ndash;流程设计器&ndash;&gt;-->
-    <!--    <el-dialog-->
-    <!--      title="流程配置"-->
-    <!--      :visible.sync="dialogVisible"-->
-    <!--      :close-on-press-escape="false"-->
-    <!--      :fullscreen=true-->
-    <!--      :before-close="handleClose"-->
-    <!--      append-to-body>-->
-    <!--      <Model :deployId="deployId"/>-->
-    <!--    </el-dialog>-->
+<!--    &lt;!&ndash;流程设计器&ndash;&gt;-->
+<!--    <el-dialog-->
+<!--      title="流程配置"-->
+<!--      :visible.sync="dialogVisible"-->
+<!--      :close-on-press-escape="false"-->
+<!--      :fullscreen=true-->
+<!--      :before-close="handleClose"-->
+<!--      append-to-body>-->
+<!--      <Model :deployId="deployId"/>-->
+<!--    </el-dialog>-->
   </div>
 </template>
 
@@ -287,11 +282,9 @@ export default {
       formDeployTitle: "",
       formList: [],
       formTotal:0,
-      formConf: {}, // 默认表单数据
-      readImage:{
-        open: false,
-        src: "",
-      },
+      flowImageTitle: '',
+      flowImageOpen: false,
+      formRenderData:{},
       // bpmn.xml 导入
       upload: {
         // 是否显示弹出层（xml导入）
@@ -331,7 +324,6 @@ export default {
         deployId: null
       },
       deployId: '',
-      currentRow: null,
       // xml
       flowData: {},
       // 表单参数
@@ -420,19 +412,25 @@ export default {
     },
     /** 流程图查看 */
     handleReadImage(deployId){
-      this.readImage.title = "流程图";
-      this.readImage.open = true;
-      // this.readImage.src = process.env.VUE_APP_BASE_API + "/flowable/definition/readImage/" + deploymentId;
+      this.flowImageTitle = "流程图";
+      this.flowImageOpen = true;
       flowXmlAndNode({deployId:deployId}).then(res => {
         this.flowData = res.data;
       })
     },
     /** 表单查看 */
-    handleForm(formId){
-      getForm(formId).then(res =>{
+    handleForm(formId) {
+      getForm(formId).then(res => {
         this.formTitle = "表单详情";
         this.formConfOpen = true;
-        this.formConf = JSON.parse(res.data.formContent)
+        // 回显表单
+        this.$nextTick(() => {
+          this.$refs.vFormRef.setFormJson(res.data.formContent);
+          this.$nextTick(() => {
+            // 表单禁用
+            this.$refs.vFormRef.disableForm();
+          })
+        })
       })
     },
     /** 启动流程 */
@@ -479,14 +477,22 @@ export default {
     },
     handleCurrentChange(data) {
       if (data) {
-        this.currentRow = JSON.parse(data.formContent);
+        // 回显表单
+        this.$nextTick(() => {
+          this.$refs.vFormRef.setFormJson(JSON.parse(data.formContent));
+            // 加载表单填写的数据
+            this.$nextTick(() => {
+              // 表单禁用
+              this.$refs.vFormRef.disableForm();
+          })
+        })
       }
     },
     /** 挂起/激活流程 */
     handleUpdateSuspensionState(row){
       let state = 1;
       if (row.suspensionState === 1) {
-        state = 2
+          state = 2
       }
       const params = {
         deployId: row.deploymentId,
