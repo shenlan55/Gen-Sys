@@ -178,6 +178,13 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+            <!-- flowable工作流-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-flowable</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
