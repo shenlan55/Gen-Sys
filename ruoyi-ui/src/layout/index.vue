@@ -1,19 +1,19 @@
 <template>
   <div :class="classObj" class="app-wrapper" :style="{'--current-color': theme}">
-    <el-scrollbar>
       <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
       <sidebar v-if="!sidebar.hide" class="sidebar-container"/>
       <div :class="{hasTagsView:needTagsView,sidebarHide:sidebar.hide}" class="main-container">
-        <div :class="{'fixed-header':fixedHeader}">
-          <navbar/>
-          <tags-view v-if="needTagsView"/>
-        </div>
-        <app-main/>
-        <right-panel>
-          <settings/>
-        </right-panel>
+        <el-scrollbar>
+          <div :class="{'fixed-header':fixedHeader}">
+            <navbar/>
+            <tags-view v-if="needTagsView"/>
+          </div>
+          <app-main/>
+          <right-panel>
+            <settings/>
+          </right-panel>
+        </el-scrollbar>
       </div>
-    </el-scrollbar>
   </div>
 </template>
 
@@ -78,6 +78,10 @@ export default {
       height: 100%;
     }
 
+    ::v-deep .el-scrollbar__bar.is-vertical {
+      z-index: 10;
+    }
+  
     ::v-deep .el-scrollbar__wrap {
       overflow-x: hidden;
     }
