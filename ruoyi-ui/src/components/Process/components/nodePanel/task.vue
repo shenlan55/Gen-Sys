@@ -357,14 +357,12 @@ export default {
   },
   watch: {
     'formData.userType': function(val, oldVal) {
+      const types = ['assignee', 'candidateUsers', 'candidateGroups']
       if (StrUtil.isNotBlank(oldVal)) {
-          delete this.element.businessObject.$attrs[`flowable:${oldVal}`]
-          delete this.formData[oldVal]
-          // 清除已选人员数据
-          this.checkValues = '';
-          this.selectValues = null;
-          // 删除xml中已选择数据类型节点
-          delete this.element.businessObject.$attrs[`flowable:dataType`]
+        types.forEach(type => {
+          delete this.element.businessObject.$attrs[`flowable:${type}`]
+          delete this.formData[type]
+        })
       }
       // 写入userType节点信息到xml
       this.updateProperties({'flowable:userType': val})
@@ -382,9 +380,6 @@ export default {
     'formData.formKey': function(val) {
       if (StrUtil.isNotBlank(val)) {
         this.updateProperties({'flowable:formKey': val})
-      } else {
-        // 删除xml中已选择表单信息
-        delete this.element.businessObject[`formKey`]
       }
     },
     'formData.priority': function(val) {
@@ -499,7 +494,7 @@ export default {
         const val = attrs["flowable:candidateUsers"];
         if (attrs["flowable:dataType"] === "dynamic") {
           this.checkValues = that.expList.find(item => item.expression == val).name;
-          this.selectValues = that.expList.find(item => item.expression == val).id;
+          this.selectValues = that.expList.filter(item => item.expression == val).id;
         } else {
           const newArr = that.userList.filter(i => val.split(',').includes(i.userId))
           this.checkValues =  newArr.map(item => item.nickName).join(',');
@@ -510,7 +505,7 @@ export default {
         const val = businessObject["candidateGroups"] || attrs["flowable:candidateGroups"];
         if (attrs["flowable:dataType"] === "dynamic") {
           this.checkValues = that.expList.find(item => item.expression == val).name;
-          this.selectValues = that.expList.find(item => item.expression == val).id;
+          this.selectValues = that.expList.filter(item => item.expression == val).id;
         } else {
           const newArr = that.groupList.filter(i => val.split(',').includes(i.roleId))
           this.checkValues =  newArr.map(item => item.roleName).join(',');
