@@ -133,3 +133,33 @@ export function deptTreeSelect() {
     method: 'get'
   })
 }
+
+
+export function getHomeUserInfo() {
+  return request({
+    url: '/system/user/profile/homeInfo',
+    method: 'get'
+  })
+}
+
+export function getHomeShortcuts() {
+  return request({
+    url: '/system/user/profile/shortcuts',
+    method: 'get'
+  })
+}
+
+export function getUserPreferences() {
+  return request({
+    url: '/system/user/getPreferences',
+    method: 'get'
+  })
+}
+
+export function saveUserPreferences(data) {
+  return request({
+    url: '/system/user/savePreferences',
+    method: 'put',
+    data: data
+  })
+}

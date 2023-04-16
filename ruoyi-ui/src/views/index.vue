@@ -1,53 +1,60 @@
 <template>
-    <div>
-      <el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="100px">
-        <el-form-item label="K8S" prop="field101">
-          <el-input v-model="formData.field101" placeholder="请输入K8S" clearable :style="{width: '100%'}">
-          </el-input>
-        </el-form-item>
-        <el-form-item size="large">
-          <el-button type="primary" @click="submitForm">提交</el-button>
-          <el-button @click="resetForm">重置</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </template>
-  <script>
+  <div class="dashboard-editor-container">
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <user-info></user-info>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <shortcut></shortcut>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <cms-site-stat></cms-site-stat>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+  import SysUserInfo from '@/views/system/dashboard/userInfo'
+  import SysShortcut from '@/views/system/dashboard/shortcut'
+
   export default {
-    components: {},
-    props: [],
+    name: 'Index',
+    components: {
+      'user-info': SysUserInfo,
+      'shortcut': SysShortcut,
+    },
     data() {
       return {
-        formData: {
-          field101: 'http://172.22.158.108:30880/',
-        },
-        rules: {
-          field101: [{
-            required: true,
-            message: '请输入K8S',
-            trigger: 'blur'
-          }],
-        },
       }
     },
-    computed: {},
-    watch: {},
-    created() {},
-    mounted() {},
+    created () {
+    },
     methods: {
-      submitForm() {
-        this.$refs['elForm'].validate(valid => {
-          if (!valid) return
-          // TODO 提交表单
-        })
-      },
-      resetForm() {
-        this.$refs['elForm'].resetFields()
-      },
+
     }
   }
-  
-  </script>
-  <style>
-  </style>
-  
+</script>
+<style lang="scss" scoped>
+  .dashboard-editor-container {
+    padding: 10px;
+    background-color: rgb(240, 242, 245);
+    position: relative;
+
+    .chart-wrapper {
+      background: #fff;
+      padding: 16px 16px 0;
+      margin-bottom: 32px;
+    }
+  }
+
+  @media (max-width:1024px) {
+    .chart-wrapper {
+      padding: 8px;
+    }
+  }
+</style>
