@@ -357,11 +357,12 @@ export default {
   },
   watch: {
     'formData.userType': function(val, oldVal) {
+      const types = ['assignee', 'candidateUsers', 'candidateGroups']
       if (StrUtil.isNotBlank(oldVal)) {
-          delete this.element.businessObject.$attrs[`flowable:${oldVal}`]
-          delete this.formData[oldVal]
-          // 清除已选人员数据
-          this.checkValues = '';
+        types.forEach(type => {
+          delete this.element.businessObject.$attrs[`flowable:${type}`]
+          delete this.formData[type]
+        })
       }
       // 写入userType节点信息到xml
       this.updateProperties({'flowable:userType': val})
