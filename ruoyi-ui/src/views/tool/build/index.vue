@@ -284,7 +284,7 @@ export default {
       })
     }else {
       // 初始化表单设计器
-      that.formConf = {};
+      // that.formConf = {};
       if (formConfInDB) {
         that.formConf = formConfInDB
       }
@@ -396,9 +396,9 @@ export default {
     },
     AssembleFormData() {
       this.formData = {
-        fields: deepClone(this.drawingList),
         ...this.formConf
       }
+      this.formData.fields = deepClone(this.drawingList);
     },
     generate(data) {
       const func = this[`exec${titleCase(this.operationType)}`]
