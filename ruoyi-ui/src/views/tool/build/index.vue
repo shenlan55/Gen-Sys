@@ -554,5 +554,5 @@ export default {
 </script>
 
 <style lang='scss'>
-  @import '@/styles/home.scss';
+@import '@/styles/home.scss';
 </style>

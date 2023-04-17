@@ -544,15 +544,29 @@ public class FlowTaskServiceImpl extends FlowServiceFactory implements IFlowTask
             flowTask.setProcDefVersion(pd.getVersion());
             flowTask.setCategory(pd.getCategory());
             flowTask.setProcDefVersion(pd.getVersion());
-            // 当前所处流程 todo: 本地启动放开以下注释
+            // 当前所处流程
             List<Task> taskList = taskService.createTaskQuery().processInstanceId(hisIns.getId()).list();
             if (CollectionUtils.isNotEmpty(taskList)) {
                 flowTask.setTaskId(taskList.get(0).getId());
                 flowTask.setTaskName(taskList.get(0).getName());
+                // 当前任务节点办理人信息
+                SysUser sysUser = sysUserService.selectUserById(Long.parseLong(taskList.get(0).getAssignee()));
+                if (Objects.nonNull(sysUser)) {
+                    flowTask.setAssigneeId(sysUser.getUserId());
+                    flowTask.setAssigneeName(sysUser.getNickName());
+                    flowTask.setAssigneeDeptName(Objects.nonNull(sysUser.getDept()) ? sysUser.getDept().getDeptName() : "");
+                }
             } else {
                 List<HistoricTaskInstance> historicTaskInstance = historyService.createHistoricTaskInstanceQuery().processInstanceId(hisIns.getId()).orderByHistoricTaskInstanceEndTime().desc().list();
                 flowTask.setTaskId(historicTaskInstance.get(0).getId());
                 flowTask.setTaskName(historicTaskInstance.get(0).getName());
+                // 当前任务节点办理人信息
+                SysUser sysUser = sysUserService.selectUserById(Long.parseLong(historicTaskInstance.get(0).getAssignee()));
+                if (Objects.nonNull(sysUser)) {
+                    flowTask.setAssigneeId(sysUser.getUserId());
+                    flowTask.setAssigneeName(sysUser.getNickName());
+                    flowTask.setAssigneeDeptName(Objects.nonNull(sysUser.getDept()) ? sysUser.getDept().getDeptName() : "");
+                }
             }
             flowList.add(flowTask);
         }
@@ -1020,7 +1034,7 @@ public class FlowTaskServiceImpl extends FlowServiceFactory implements IFlowTask
                     if (Objects.nonNull(multiInstance)) {
                         flowNextDto.setVars(multiInstance.getInputDataItem());
                         flowNextDto.setType(ProcessConstants.PROCESS_MULTI_INSTANCE);
-                        flowNextDto.setDataType(ProcessConstants.PROCESS_MULTI_INSTANCE);
+                        flowNextDto.setDataType(ProcessConstants.DYNAMIC);
                     } else {
                         // 读取自定义节点属性 判断是否是否需要动态指定任务接收人员、组
                         String dataType = userTask.getAttributeValue(ProcessConstants.NAMASPASE, ProcessConstants.PROCESS_CUSTOM_DATA_TYPE);
@@ -1057,7 +1071,7 @@ public class FlowTaskServiceImpl extends FlowServiceFactory implements IFlowTask
                 if (Objects.nonNull(multiInstance)) {
                     flowNextDto.setVars(multiInstance.getInputDataItem());
                     flowNextDto.setType(ProcessConstants.PROCESS_MULTI_INSTANCE);
-                    flowNextDto.setDataType(ProcessConstants.PROCESS_MULTI_INSTANCE);
+                    flowNextDto.setDataType(ProcessConstants.DYNAMIC);
                 } else {
                     // 读取自定义节点属性 判断是否是否需要动态指定任务接收人员、组
                     String dataType = userTask.getAttributeValue(ProcessConstants.NAMASPASE, ProcessConstants.PROCESS_CUSTOM_DATA_TYPE);

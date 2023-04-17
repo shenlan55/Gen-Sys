@@ -272,7 +272,7 @@ export default {
         if (selection instanceof Array) {
           const selectVal = selection.map(item => item.userId);
           if (this.multiInstanceVars) {
-            this.$set(this.taskForm.variables, this.multiInstanceVars, selection);
+            this.$set(this.taskForm.variables, this.multiInstanceVars, selectVal);
           } else {
             this.$set(this.taskForm.variables, "approval", selectVal.join(','));
           }
@@ -380,8 +380,8 @@ export default {
     /** 返回页面 */
     goBack() {
       // 关闭当前标签页并返回上个页面
-      this.$store.dispatch("tagsView/delView", this.$route);
-      this.$router.go(-1)
+      const obj = { path: "/task/todo", query: { t: Date.now()} };
+      this.$tab.closeOpenPage(obj);
     },
     /** 驳回任务 */
     handleReject() {
@@ -448,8 +448,8 @@ export default {
       const params = {taskId: this.taskForm.taskId}
       getNextFlowNode(params).then(res => {
         const data = res.data;
+        this.taskForm.formData = formData;
         if (data) {
-          this.taskForm.formData = formData;
           if (data.dataType === 'dynamic') {
             if (data.type === 'assignee') { // 指定人员
               this.checkSendUser = true;
