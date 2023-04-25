@@ -74,6 +74,11 @@
             <version>1.5.6</version>
         </dependency>
 
+        <!-- portal门户-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-portal</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

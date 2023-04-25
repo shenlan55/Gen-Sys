@@ -177,6 +177,12 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+            <!-- portal门户-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-portal</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -187,6 +193,7 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-portal</module>
     </modules>
     <packaging>pom</packaging>
 
