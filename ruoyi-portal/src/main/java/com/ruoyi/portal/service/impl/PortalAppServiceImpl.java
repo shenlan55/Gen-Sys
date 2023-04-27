@@ -8,21 +8,23 @@ import com.ruoyi.portal.mapper.PortalAppMapper;
 import com.ruoyi.portal.domain.PortalApp;
 import com.ruoyi.portal.service.IPortalAppService;
 
+import javax.annotation.Resource;
+
 /**
  * 门户应用Service业务层处理
- * 
+ *
  * @author lasu
  * @date 2023-04-25
  */
 @Service
-public class PortalAppServiceImpl implements IPortalAppService 
+public class PortalAppServiceImpl implements IPortalAppService
 {
-    @Autowired
+    @Resource
     private PortalAppMapper portalAppMapper;
 
     /**
      * 查询门户应用
-     * 
+     *
      * @param appId 门户应用主键
      * @return 门户应用
      */
@@ -34,7 +36,7 @@ public class PortalAppServiceImpl implements IPortalAppService
 
     /**
      * 查询门户应用列表
-     * 
+     *
      * @param portalApp 门户应用
      * @return 门户应用
      */
@@ -46,7 +48,7 @@ public class PortalAppServiceImpl implements IPortalAppService
 
     /**
      * 新增门户应用
-     * 
+     *
      * @param portalApp 门户应用
      * @return 结果
      */
@@ -59,7 +61,7 @@ public class PortalAppServiceImpl implements IPortalAppService
 
     /**
      * 修改门户应用
-     * 
+     *
      * @param portalApp 门户应用
      * @return 结果
      */
@@ -72,7 +74,7 @@ public class PortalAppServiceImpl implements IPortalAppService
 
     /**
      * 批量删除门户应用
-     * 
+     *
      * @param appIds 需要删除的门户应用主键
      * @return 结果
      */
@@ -84,7 +86,7 @@ public class PortalAppServiceImpl implements IPortalAppService
 
     /**
      * 删除门户应用信息
-     * 
+     *
      * @param appId 门户应用主键
      * @return 结果
      */

@@ -7,7 +7,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 门户应用对象 portal_app
- * 
+ *
  * @author lasu
  * @date 2023-04-25
  */
@@ -34,61 +34,61 @@ public class PortalApp extends BaseEntity
     @Excel(name = "排序号")
     private Long sortnum;
 
-    /** 0表示启用1表示停用 */
-    @Excel(name = "0表示启用1表示停用")
+    /** 状态 */
+    @Excel(name = "状态")
     private String status;
 
-    public void setAppId(Long appId) 
+    public void setAppId(Long appId)
     {
         this.appId = appId;
     }
 
-    public Long getAppId() 
+    public Long getAppId()
     {
         return appId;
     }
-    public void setAppName(String appName) 
+    public void setAppName(String appName)
     {
         this.appName = appName;
     }
 
-    public String getAppName() 
+    public String getAppName()
     {
         return appName;
     }
-    public void setAppClass(String appClass) 
+    public void setAppClass(String appClass)
     {
         this.appClass = appClass;
     }
 
-    public String getAppClass() 
+    public String getAppClass()
     {
         return appClass;
     }
-    public void setRouter(String router) 
+    public void setRouter(String router)
     {
         this.router = router;
     }
 
-    public String getRouter() 
+    public String getRouter()
     {
         return router;
     }
-    public void setSortnum(Long sortnum) 
+    public void setSortnum(Long sortnum)
     {
         this.sortnum = sortnum;
     }
 
-    public Long getSortnum() 
+    public Long getSortnum()
     {
         return sortnum;
     }
-    public void setStatus(String status) 
+    public void setStatus(String status)
     {
         this.status = status;
     }
 
-    public String getStatus() 
+    public String getStatus()
     {
         return status;
     }
