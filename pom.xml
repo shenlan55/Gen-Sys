@@ -194,6 +194,7 @@
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>ruoyi-portal</module>
+        <module>ruoyi-flowable</module>
     </modules>
     <packaging>pom</packaging>
 
