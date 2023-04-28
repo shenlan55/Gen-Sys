@@ -43,15 +43,17 @@ Gen-Sys是一套基于若依的快速开发平台。
 23. 任务节点配置任务/执行监听器
 24. 动态配置任务候选人
 25. 其它流程相关功能点
+26. 积木报表
+27. 门户管理
 
 
-## 在线体验
+## 在线体验（待发布）
 
-- admin/admin123  
+- admin/123456  
 - 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
 
-演示地址：http://vue.ruoyi.vip  
-文档地址：http://doc.ruoyi.vip  
+演示地址：
+ruoyi-vue文档地址：http://doc.ruoyi.vip  
 flowable文档：https://www.yuque.com/u1024153/icipor
 
 
