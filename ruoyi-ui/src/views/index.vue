@@ -2,7 +2,7 @@
   <div class="dashboard-editor-container">
     <el-row :gutter="20">
       <el-col :span="24">
-        <user-info></user-info>
+<!--        <user-info></user-info>-->
       </el-col>
     </el-row>
     <el-row :gutter="20">
@@ -12,7 +12,7 @@
     </el-row>
     <el-row :gutter="20">
       <el-col :span="24">
-        <cms-site-stat></cms-site-stat>
+<!--        <cms-site-stat></cms-site-stat>-->
       </el-col>
     </el-row>
   </div>
@@ -20,13 +20,13 @@
 
 <script>
   import SysUserInfo from '@/views/system/dashboard/userInfo'
-  import SysShortcut from '@/views/system/dashboard/shortcut'
+  import AppShortcuts from '@/views/system/dashboard/shortcut'
 
   export default {
     name: 'Index',
     components: {
-      'user-info': SysUserInfo,
-      'shortcut': SysShortcut,
+      // 'user-info': SysUserInfo,
+      'shortcut': AppShortcuts
     },
     data() {
       return {

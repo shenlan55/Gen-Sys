@@ -50,12 +50,32 @@ Gen-Sys是一套基于若依的快速开发平台。
 ## 在线体验（待发布）
 
 - admin/123456  
-- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
 
-演示地址：
+
+演示地址：  
 ruoyi-vue文档地址：http://doc.ruoyi.vip  
 flowable文档：https://www.yuque.com/u1024153/icipor
 
+## 演示图
+
+<table>
+    <tr>
+        <td><img src="img/img.png"/></td>
+        <td><img src="img/img_1.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="img/img_2.png"/></td>
+        <td><img src="img/img_3.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="img/img_4.png"/></td>
+        <td><img src="img/img_5.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="img/img_6.png"/></td>
+        <td><img src="img/img_7.png"/></td>
+    </tr>
+</table>
 
 ## 亘系统交流群
 

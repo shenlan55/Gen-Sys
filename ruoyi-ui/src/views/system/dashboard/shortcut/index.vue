@@ -1,47 +1,37 @@
 <template>
-  <div class="home-shortcut-container">
-    <el-row :gutter="10">
-      <el-col
-        v-for="shortcut in shortcuts"
-        :key="shortcut.router"
-        :span="3">
-        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-          <el-link class="shortcut-link" @click="handleShortcutRedirect(shortcut.router)">
-            <svg-icon :icon-class="shortcut.icon" class-name="card-panel-icon"></svg-icon>
-            <div class="shortcut-text">
-              <span>{{ shortcut.name }}</span>
-            </div>
-          </el-link>
-        </el-card>
-      </el-col>
-    </el-row>
+  <div>
+    <h1>My Application Shortcuts</h1>
+    <ul>
+      <li v-for="app in list" :key="app.app_id">
+        <a :href="app.router">{{ app.name }}</a>
+      </li>
+    </ul>
   </div>
 </template>
-<script>
-import { getHomeShortcuts } from "@/api/system/user";
 
-export default {
-  name: "ShortcutDashboard",
-  data () {
-    return {
-      shortcuts: []
-    };
-  },
-  created() {
-    this.loadShortcuts();
-  },
-  methods: {
-    loadShortcuts() {
-      getHomeShortcuts().then(response => {
-        this.shortcuts = response.data;
-      })
+<script>
+  import axios from 'axios'
+  export default {
+    name: 'AppShortcuts',
+    data() {
+      return {
+        list: []
+      }
     },
-    handleShortcutRedirect(router) {
-      console.log(router)
-      this.$router.push({ name: router })
+    mounted() {
+      this.getApplications()
+    },
+    methods: {
+      getApplications() {
+        // Fetch data from backend API using Axios
+        axios.get('/dev-api/portal/app/api/applications').then(response => {
+          this.list = response.data
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   }
-};
 </script>
 <style>
 .home-shortcut-container .shortcut-link {
